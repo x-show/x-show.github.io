@@ -203,24 +203,12 @@
 <script>
     window.loading_screen.finish();
     $(document).ready(function() {
-        // flag
-        var flag = true;
         $('.audio-btn').addClass('audio-active');
         // 音乐按钮
         var audio = $('.music')[0];
-        // 自动播放
-        if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
-            $(document).on('touchstart', function (e) {
-                audio.touchstart = true;
-                audio.play();
-//                audio.pause();
-                return false;
-            });
-        }
         // 播放停止
         $('.audio-btn').click(function() {
-            console.log(flag);
-            if(!flag) {
+            if(audio.paused) {
                 audio.play();
                 $('.audio-btn').addClass('audio-active');
                 $('.audio-btn').removeClass('audio-disabled');
@@ -230,7 +218,6 @@
                 $('.audio-btn').addClass('audio-disabled');
                 $('.audio-btn').removeClass('audio-active');
             }
-            flag = !flag;
         });
 
         $('#fullpage').fullpage({
