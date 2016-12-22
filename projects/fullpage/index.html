@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="./please-wait.css"/>
+    <link rel="stylesheet" href="./please-wait-default.css"/>
+    <script src="./please-wait.min.js"></script>
+    <link rel="stylesheet" href="./fullpage.css">
+
+    <style>
+        @-webkit-keyframes start {
+            0%, 30% {
+                opacity: 0;
+                -webkit-transform: translate(0, 10px)
+            }
+            60% {
+                opacity: 1;
+                -webkit-transform: translate(0, 0)
+            }
+            100% {
+                opacity: 0;
+                -webkit-transform: translate(0, -8px)
+            }
+        }
+
+        @-moz-keyframes start {
+            0%, 30% {
+                opacity: 0;
+                -moz-transform: translate(0, 10px)
+            }
+            60% {
+                opacity: 1;
+                -moz-transform: translate(0, 0)
+            }
+            100% {
+                opacity: 0;
+                -moz-transform: translate(0, -8px)
+            }
+        }
+
+        @keyframes start {
+            0%, 30% {
+                opacity: 0;
+                transform: translate(0, 10px)
+            }
+            60% {
+                opacity: 1;
+                transform: translate(0, 0)
+            }
+            100% {
+                opacity: 0;
+                transform: translate(0, -8px)
+            }
+        }
+
+        .u-arrow-bottom {
+            bottom: 10px;
+            z-index: 150;
+            margin-left: -7px;
+            position: absolute;
+            width: 24px;
+            height: 14px;
+            left: 50%;
+        }
+        .pre-wrap {
+            width: 24px;
+            height: 14px;
+            position: relative;
+            -webkit-animation: start 1.5s infinite ease-in-out;
+            -moz-animation: start 1.5s infinite ease-in-out;
+            animation: start 1.5s infinite ease-in-out;
+        }
+        .pre-box1,
+        .pre-box2 {
+            height: 15px;
+            width: 11px;
+            position: absolute;
+            top: -5px;
+            overflow: hidden;
+        }
+        .pre-box2 {
+            left: 10px;
+        }
+        .pre1 {
+            transform: rotate(130deg);
+            -webkit-transform: rotate(130deg);
+            left: 1px;
+        }
+
+        .pre1, .pre2 {
+            width: 14px;
+            height: 5px;
+            position: absolute;
+            box-shadow: 1px -1px 1px #646464;
+            top: 5px;
+        }
+        .pre2 {
+            left: -4.5px;
+            -webkit-transform: rotate(50deg);
+            transform: rotate(50deg);
+        }
+        .pre1, .pre2, .pre3, .pre4 {
+            border-radius: 2px;
+            background-color: #bbb;
+        }
+
+        .music {
+            display: none;
+        }
+
+        .audio-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 200;
+            width: 30px;
+            height: 30px;
+        }
+        .audio-disabled {
+            background-color: #ff4a4a;
+        }
+        .audio-active {
+            background-color: #000000;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Main Section -->
+<div id="fullpage">
+    <div class="section">
+        123
+        <!-- Arrow Section -->
+        <section class="u-arrow-bottom">
+            <div class="pre-wrap">
+                <div class="pre-box1">
+                    <div class="pre1"></div>
+                </div>
+                <div class="pre-box2">
+                    <div class="pre2"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Arrow Section -->
+    </div>
+    <div class="section">
+        456
+        <!-- Arrow Section -->
+        <section class="u-arrow-bottom">
+            <div class="pre-wrap">
+                <div class="pre-box1">
+                    <div class="pre1"></div>
+                </div>
+                <div class="pre-box2">
+                    <div class="pre2"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Arrow Section -->
+    </div>
+    <div class="section">
+        789
+        <!-- Arrow Section -->
+        <section class="u-arrow-bottom">
+            <div class="pre-wrap">
+                <div class="pre-box1">
+                    <div class="pre1"></div>
+                </div>
+                <div class="pre-box2">
+                    <div class="pre2"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Arrow Section -->
+    </div>
+    <div class="section">Some section</div>
+</div>
+<!-- Main Section -->
+
+<audio class="music" src="./music.mp3" autoplay loop preload="auto"></audio>
+
+<div class="audio-btn"></div>
+
+<script>
+    window.loading_screen = window.pleaseWait({
+        logo: './tmhy.png',
+        backgroundColor: '#ffffff',
+        loadingHtml: "<p class='loading-message'>请稍等,我们正在拼命的为您加载...</p><div class='sk-spinner sk-spinner-wave'><div class='sk-rect1'></div><div class='sk-rect2'></div><div class='sk-rect3'></div><div class='sk-rect4'></div><div class='sk-rect5'></div></div>"
+    });
+</script>
+
+
+<!-- 用到的JS -->
+<script src="./1.11.1-jquery.min.js"></script>
+<script src="./scrolloverflow.min.js"></script>
+<script src="./jquery.fullpage.min.js"></script>
+
+<!-- 配置代码 -->
+<script>
+    window.loading_screen.finish();
+    $(document).ready(function() {
+        // flag
+        var flag = true;
+        $('.audio-btn').addClass('audio-active');
+        // 音乐按钮
+        var audio = $('.music')[0];
+        // 自动播放
+        if (/i(Phone|P(o|a)d)/.test(navigator.userAgent)) {
+            $(document).on('touchstart', function (e) {
+                audio.touchstart = true;
+                audio.play();
+                audio.pause();
+                return false;
+            });
+        }
+        // 播放停止
+        $('.audio-btn').click(function() {
+            console.log(flag);
+            if(!flag) {
+                audio.play();
+                $('.audio-btn').addClass('audio-active');
+                $('.audio-btn').removeClass('audio-disabled');
+            }
+            else {
+                audio.pause();
+                $('.audio-btn').addClass('audio-disabled');
+                $('.audio-btn').removeClass('audio-active');
+            }
+            flag = !flag;
+        });
+
+        $('#fullpage').fullpage({
+            //Design
+            sectionsColor: ['#0f0', '#f00', '#ff0', '#00f'],
+            scrollOverflow: true
+        });
+    });
+</script>
+</body>
+</html>
